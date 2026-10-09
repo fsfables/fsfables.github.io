@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-fsfables: oklch(0.4989 0.2302 344.27);
+  --color-fsfables-light: oklch(0.61 0.2302 344.27);
+
+  --color-ashkariel: oklch(0.5931 0 0);
+  --color-liron: oklch(0.5231 0.1816 5.33);
+  --color-malim: oklch(0.4713 0.1686 22.96);
+  --color-lucien: oklch(0.5044 0.1971 23.08);
+  --color-ryzar: oklch(0.5912 0.1774 36.91);
+  --color-gale: oklch(0.8448 0.1663 83.9);
+  --color-aurel: oklch(0.949 0.0511 92.56);
+  --color-solan: oklch(0.7649 0.061 149.39);
+  --color-cassian: oklch(0.7451 0.1577 151.54);
+  --color-elias: oklch(0.6865 0.1041 185.33);
+  --color-nimue: oklch(0.8101 0.0542 231.07);
+  --color-caelen: oklch(0.719 0.0606 253.37);
+  --color-saeir: oklch(0.5073 0.11 263.68);
+  --color-altus: oklch(0.5598 0.1882 266.4);
+  --color-nayuta: oklch(0.3819 0.0993 290.92);
+  --color-shiki: oklch(0.7409 0.0968 310.14);
+  --color-zander: oklch(0.5411 0.2272 311.51);
+  --color-varis: oklch(0.5062 0.0872 315.37);
+  --color-rosco: oklch(0.6512 0.2577 354.04);
+}
