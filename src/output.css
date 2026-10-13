@@ -289,6 +289,12 @@
   .h-\[50vh\] {
     height: 50vh;
   }
+  .h-\[75vh\] {
+    height: 75vh;
+  }
+  .h-\[90vh\] {
+    height: 90vh;
+  }
   .h-dvh {
     height: 100dvh;
   }
@@ -303,6 +309,9 @@
   }
   .min-h-175 {
     min-height: calc(var(--spacing) * 175);
+  }
+  .min-h-200 {
+    min-height: calc(var(--spacing) * 200);
   }
   .min-h-screen {
     min-height: 100vh;

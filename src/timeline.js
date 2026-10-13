@@ -1,4 +1,57 @@
-const palette = {
+function stripe(color, size = 10) {
+  const c = document.createElement("canvas");
+  c.width = c.height = size;
+  const g = c.getContext("2d");
+  g.fillStyle = color;
+  // two triangles that together form one thick diagonal band, tiling seamlessly
+  g.beginPath();
+  g.moveTo(0, size / 2);
+  g.lineTo(size / 2, 0);
+  g.lineTo(size, 0);
+  g.lineTo(0, size);
+  g.closePath();
+  g.fill();
+  g.beginPath();
+  g.moveTo(size, size / 2);
+  g.lineTo(size / 2, size);
+  g.lineTo(size, size);
+  g.closePath();
+  g.fill();
+  return g.createPattern(c, "repeat");
+}
+
+const futureStripes = {
+  id: "futureStripes",
+  afterDatasetsDraw(chart) {
+    const {
+      ctx,
+      chartArea,
+      scales: { x },
+    } = chart;
+    const now = chart.options.plugins.annotation.annotations.line1.xMin; // same value the red line uses
+    const meta = chart.getDatasetMeta(0);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(chartArea.left, chartArea.top, chartArea.width, chartArea.height);
+    ctx.clip(); // don't paint over the axes while panning
+
+    streams.forEach((s, i) => {
+      if (s.end !== "LIVE") return;
+      const end = chart.data.datasets[0].data[i].x[1];
+      if (end <= now) return; // already past the estimate, nothing to stripe
+      const bar = meta.data[i];
+      const x0 = x.getPixelForValue(now);
+      const x1 = x.getPixelForValue(end);
+      ctx.fillStyle = stripe(colorOf(s).hover);
+      ctx.fillRect(x0, bar.y - bar.height / 2, x1 - x0, bar.height);
+    });
+
+    ctx.restore();
+  },
+};
+
+const palette2 = {
   gale: { bg: "oklch(0.753 0.154 84.45 / 0.5)", hover: "oklch(0.667 0.137 84.62 / 0.8)" },
   cassian: { bg: "oklch(0.745 0.158 151.53 / 0.5)", hover: "oklch(0.657 0.14 151.4 / 0.8)" },
   lucien: { bg: "oklch(0.79 0.116 16.73 / 0.5)", hover: "oklch(0.727 0.163 18.78 / 0.8)" },
@@ -19,67 +72,32 @@ const palette = {
   varis: { bg: "oklch(0.79 0.053 313.77 / 0.5)", hover: "oklch(0.723 0.073 315.25 / 0.8)" },
   aurel: { bg: "oklch(0.766 0.101 96.02 / 0.5)", hover: "oklch(0.68 0.09 95.5 / 0.8)" },
 };
+const palette = {
+  gale: { bg: "oklch(0.8448 0.1663 83.9 / 0.5)", hover: "oklch(0.8448 0.1663 83.9 / 0.8)" },
+  cassian: { bg: "oklch(0.7451 0.1577 151.54 / 0.5)", hover: "oklch(0.7451 0.1577 151.54 / 0.8)" },
+  lucien: { bg: "oklch(0.5044 0.1971 23.08 / 0.5)", hover: "oklch(0.5044 0.1971 23.08 / 0.8)" },
+  zander: { bg: "oklch(0.5411 0.2272 311.51 / 0.5)", hover: "oklch(0.5411 0.2272 311.51 / 0.8)" },
+  rosco: { bg: "oklch(0.6512 0.2577 354.04 / 0.5)", hover: "oklch(0.6512 0.2577 354.04 / 0.8)" },
+  malim: { bg: "oklch(0.4713 0.1686 22.96 / 0.5)", hover: "oklch(0.4713 0.1686 22.96 / 0.8)" },
+  altus: { bg: "oklch(0.5598 0.1882 266.4 / 0.5)", hover: "oklch(0.5598 0.1882 266.4 / 0.8)" },
+  ryzar: { bg: "oklch(0.5912 0.1774 36.91 / 0.5)", hover: "oklch(0.5912 0.1774 36.91 / 0.8)" },
+  nayuta: { bg: "oklch(0.3819 0.0993 290.92 / 0.5)", hover: "oklch(0.3819 0.0993 290.92 / 0.8)" },
+  ashkariel: { bg: "oklch(0.5931 0 0 / 0.5)", hover: "oklch(0.5931 0 0 / 0.8)" },
+  shiki: { bg: "oklch(0.7409 0.0968 310.14 / 0.5)", hover: "oklch(0.7409 0.0968 310.14 / 0.8)" },
+  liron: { bg: "oklch(0.5231 0.1816 5.33 / 0.5)", hover: "oklch(0.5231 0.1816 5.33 / 0.8)" },
+  caelen: { bg: "oklch(0.719 0.0606 253.37 / 0.5)", hover: "oklch(0.719 0.0606 253.37 / 0.8)" },
+  elias: { bg: "oklch(0.6865 0.1041 185.33 / 0.5)", hover: "oklch(0.6865 0.1041 185.33 / 0.8)" },
+  nimue: { bg: "oklch(0.8101 0.0542 231.07 / 0.5)", hover: "oklch(0.8101 0.0542 231.07 / 0.8)" },
+  saeir: { bg: "oklch(0.5073 0.11 263.68 / 0.5)", hover: "oklch(0.5073 0.11 263.68 / 0.8)" },
+  solan: { bg: "oklch(0.7649 0.061 149.39 / 0.5)", hover: "oklch(0.7649 0.061 149.39 / 0.8)" },
+  varis: { bg: "oklch(0.5062 0.0872 315.37 / 0.5)", hover: "oklch(0.5062 0.0872 315.37 / 0.8)" },
+  aurel: { bg: "oklch(0.749 0.111 92.56 / 0.5)", hover: "oklch(0.749 0.111 92.56 / 0.8)" },
+};
 const streamColor = { "Gale Galleon": "gale", "Cassian Floros": "cassian", "Lucien Lunaris": "lucien", "Zander Netherbrand": "zander", "Rosco Graves": "rosco", "Malim Cendari": "malim", "Altus Zendoji": "altus", "Ryzar Blazenfang": "ryzar", "Nayuta Umbrage": "nayuta", Ashkariel: "ashkariel", "Shiki Katagami": "shiki", "Liron Lockheart": "liron", "Caelen Strayfe": "caelen", "Elias Delborne": "elias", "Nimue Eversea": "nimue", "Saeir Alarie": "saeir", "Solan Fernwick": "solan", "Varis Hemlock": "varis", "Aurel Ophidia": "aurel" };
 const fallback = { bg: "oklch(0.6178 0.2054 267.56 / 0.5)", hover: "oklch(0.6178 0.2054 267.56 / 0.8)" };
 const colorOf = (s) => palette[streamColor[s.label]] ?? fallback;
 
-const streams = [
-  { label: "Zander Netherbrand", title: "OUR JOURNEY BEGINS | First Stage Fables", start: "2026-10-10T16:04:51Z", end: "2026-10-11T03:50:29Z", url: "https://www.youtube.com/watch?v=cmfB7oECmUE" },
-  { label: "Ryzar Blazenfang", title: "#FSFables DAY 0 // the paladin's expedition begins. 🏕️", start: "2026-10-10T16:05:03Z", end: "2026-10-10T20:23:02Z", url: "https://www.youtube.com/watch?v=kpPnVUvbAzc" },
-  { label: "Cassian Floros", title: "Corvin Fareth gets sent to the mortal realm!【#FSFables - Day 1】", start: "2026-10-10T16:06:03Z", end: "2026-10-10T23:38:54Z", url: "https://www.youtube.com/watch?v=nEmLm3E3PY4" },
-  { label: "Nayuta Umbrage", title: "【#FSFables】#1 I Will Find You...【Nayuta Umbrage | FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:30:15Z", end: "2026-10-10T20:01:14Z", url: "https://www.youtube.com/watch?v=PsmqqQEpQkc" },
-  { label: "Altus Zendoji", title: "【 #FSFables 】DAY 1 - Never Fear! For I am Hyr!", start: "2026-10-10T16:30:30Z", end: "2026-10-11T02:01:39Z", url: "https://www.youtube.com/watch?v=eEa8ZGn8058" },
-  { label: "Malim Cendari", title: "【#FSFables 01】You can always ask me for help! I'm probably around anyway 👁️", start: "2026-10-10T16:31:03Z", end: "2026-10-11T03:54:43Z", url: "https://www.youtube.com/watch?v=rpFjGX6yBQ4" },
-  { label: "Nimue Eversea", title: "【#FSFables | Day 1】Nymfue Yverhym -  Nimue Eversea【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:31:35Z", end: "2026-10-10T22:31:40Z", url: "https://www.youtube.com/watch?v=bhn-5OBJmUs" },
-  { label: "Aurel Ophidia", title: "【#FSFABLES】The Beginning of Auren Zoltarys!【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:32:19Z", end: "2026-10-11T02:04:28Z", url: "https://www.youtube.com/watch?v=Yk-W6FWJrio" },
-  { label: "Rosco Graves", title: "【#FSFables | Day 1】Let the story begin~", start: "2026-10-10T16:35:04Z", end: "2026-10-11T03:38:13Z", url: "https://www.youtube.com/watch?v=nFyv8QHf00k" },
-  { label: "Liron Lockheart", title: "FSFABLES DAY #1【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:40:10Z", end: "2026-10-10T19:36:06Z", url: "https://www.youtube.com/watch?v=ZWKzw8AVEWk" },
-  { label: "Varis Hemlock", title: "【Minecraft | #FSFables】 Harris Valmrock, reporting for duty. 【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:40:25Z", end: "2026-10-11T03:48:35Z", url: "https://www.youtube.com/watch?v=7SWaXwe1BEc" },
-  { label: "Gale Galleon", title: "[#FSFABLES] GACK THE WARLOCK TAKES TO THE NIGHT", start: "2026-10-10T16:44:52Z", end: "2026-10-11T03:54:11Z", url: "https://www.youtube.com/watch?v=NxJLy2DgUhM" },
-  { label: "Solan Fernwick", title: "【#FSFables】Day 1 - Selwynn Fennwake's Adventure Begins!!【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:50:31Z", end: "2026-10-10T21:54:01Z", url: "https://www.youtube.com/watch?v=T0ew_BLDnfg" },
-  { label: "Elias Delborne", title: "【#FSFables - Day 1】My name is Silas DC Reborne...🧟", start: "2026-10-10T16:54:52Z", end: "2026-10-10T20:54:47Z", url: "https://www.youtube.com/watch?v=qHmbKLGqBI8" },
-  { label: "Saeir Alarie", title: "【MINECRAFT】#FSFables begins!  | Saeir Alarie【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T16:56:52Z", end: "2026-10-11T04:48:18Z", url: "https://www.youtube.com/watch?v=msY871rF4wQ" },
-  { label: "Shiki Katagami", title: "【FSFABLES】And so our journey begins!!!!【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T17:01:23Z", end: "2026-10-10T19:39:43Z", url: "https://www.youtube.com/watch?v=-Oxg9OmJqU4" },
-  { label: "Ashkariel", title: "【#FSFABLES - DAY 1】 Arver Clearhands' Adventure BEGINS! ✨ 【FIRST STAGE PRODUCTION EN】", start: "2026-10-10T17:01:23Z", end: "2026-10-10T22:35:06Z", url: "https://www.youtube.com/watch?v=qXlq5lhM6t4" },
-  { label: "Lucien Lunaris", title: "#FSFABLES EPISODE 1 - The Arbiter", start: "2026-10-11T00:01:17Z", end: "2026-10-11T04:32:21Z", url: "https://www.youtube.com/watch?v=7yaRCm_8Jb0" },
-  { label: "Ryzar Blazenfang", title: "#FSFables DAY 1 // a moment of settling. 🏕️", start: "2026-10-11T05:34:01Z", end: "2026-10-11T11:45:47Z", url: "https://www.youtube.com/watch?v=ckyOwfAXAHw" },
-  { label: "Altus Zendoji", title: "【 #FSFables 】DAY 1.5 - Hyr We Go Again!", start: "2026-10-11T12:05:41Z", end: "2026-10-11T15:51:59Z", url: "https://www.youtube.com/watch?v=S7wlboto--o" },
-  { label: "Zander Netherbrand", title: "Day 2: A Darker Shade of Blood | First Stage Fables", start: "2026-10-11T12:34:52Z", end: "2026-10-12T00:49:23Z", url: "https://www.youtube.com/watch?v=oPWUATg5NGo" },
-  { label: "Ryzar Blazenfang", title: "#FSFables DAY 1-2 // facta, non verba. ⛰️", start: "2026-10-11T14:01:10Z", end: "2026-10-11T19:54:35Z", url: "https://www.youtube.com/watch?v=4E2kUK5rfHQ" },
-  { label: "Liron Lockheart", title: "【#FSFables | Day 2】- Drenken Jaeger", start: "2026-10-11T16:08:57Z", end: "2026-10-11T21:03:04Z", url: "https://www.youtube.com/watch?v=x2PVEOD87Ng" },
-  { label: "Varis Hemlock", title: "【Minecraft | #FSFables】 Harris Valmrock, reporting for duty. 【FIRST STAGE PRODUCTION EN】", start: "2026-10-11T16:55:47Z", end: "2026-10-12T04:00:01Z", url: "https://www.youtube.com/watch?v=9SDnOluk84Q" },
-  { label: "Gale Galleon", title: "[#FSFABLES] Beware the things that Gack in the night", start: "2026-10-11T19:00:09Z", end: "2026-10-12T01:12:27Z", url: "https://www.youtube.com/watch?v=vtLFBfE16KI" },
-  { label: "Saeir Alarie", title: "【MINECRAFT】#FSFables Day 2: Comfy mining!  | Saeir Alarie【FIRST STAGE PRODUCTION EN】", start: "2026-10-11T21:56:14Z", end: "2026-10-12T04:53:39Z", url: "https://www.youtube.com/watch?v=ms1WNngFHZc" },
-  { label: "Altus Zendoji", title: "【 #FSFables 】DAY 2 - Hyr to Answer Your Prayers!", start: "2026-10-11T23:00:16Z", end: "2026-10-12T07:13:09Z", url: "https://www.youtube.com/watch?v=2otKrg80Rgw" },
-  { label: "Elias Delborne", title: "【#FSFables - Day 2】How is a zombie supposed to survive in this world...", start: "2026-10-11T23:04:39Z", end: "2026-10-12T03:28:07Z", url: "https://www.youtube.com/watch?v=OJKp05lIeHQ" },
-  { label: "Nayuta Umbrage", title: "【#FSFables】#2 Let Me Guide You【Nayuta Umbrage | FIRST STAGE PRODUCTION EN】", start: "2026-10-12T00:01:32Z", end: "2026-10-12T06:12:17Z", url: "https://www.youtube.com/watch?v=CwgH37hE3So" },
-  { label: "Rosco Graves", title: "【#FSFables | Day 2】Searching for some entertainment", start: "2026-10-12T00:04:42Z", end: "2026-10-12T07:48:01Z", url: "https://www.youtube.com/watch?v=uXmsXngyLiM" },
-  { label: "Lucien Lunaris", title: "#FSFABLES EPISODE 2 - Knowledge - (BIG Announcement at the end)", start: "2026-10-12T00:05:05Z", end: "2026-10-12T06:05:40Z", url: "https://www.youtube.com/watch?v=6TlvBpAH2JA" },
-  { label: "Nimue Eversea", title: "【#FSFables | Day 2】Nymfue Yverhym -  Nimue Eversea【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T01:52:11Z", end: "2026-10-12T05:26:43Z", url: "https://www.youtube.com/watch?v=_O_NEK1HbGQ" },
-  { label: "Aurel Ophidia", title: "【#FSFABLES | Day 2】Auren is HEALING!【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T02:01:09Z", end: "2026-10-12T08:42:44Z", url: "https://www.youtube.com/watch?v=QNtMRmGOeG4" },
-  { label: "Ashkariel", title: " 【#FSFABLES - DAY 2】 The Adventure Continues~! ✨ 【FIRST STAGE PRODUCTION EN】 ", start: "2026-10-12T03:01:00Z", end: "2026-10-12T07:26:03Z", url: "#" },
-  { label: "Liron Lockheart", title: "【#FSFables | Day 2.5】- THE VOID BLOSSOM", start: "2026-10-12T03:02:37Z", end: "2026-10-12T06:19:23Z", url: "https://www.youtube.com/watch?v=Ph-Efsq-kCU" },
-  { label: "Caelen Strayfe", title: "【Minecraft | #FSFables】Day 1 | It's time for Alden to join the expedition【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T06:10:05Z", end: "2026-10-12T13:22:15Z", url: "https://www.youtube.com/watch?v=P65LH1hSbcs" },
-  { label: "Ryzar Blazenfang", title: "#FSFables DAY 2.5-3 // let's work on a tavern together. 🍻", start: "2026-10-12T09:58:12Z", end: "2026-10-12T20:48:30Z", url: "https://www.youtube.com/watch?v=gYyh8KuLtgI" },
-  { label: "Solan Fernwick", title: "【#FSFables】Day 2 - Another Day of FSFables!!【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T10:56:30Z", end: "2026-10-12T15:47:15Z", url: "https://www.youtube.com/watch?v=GBaqARTamH4" },
-  { label: "Cassian Floros", title: "The Wall has made friends!【#FSFables - Day 2】", start: "2026-10-12T11:01:26Z", end: "2026-10-12T16:07:26Z", url: "https://www.youtube.com/watch?v=zBOnCQx-isY" },
-  { label: "Altus Zendoji", title: "【 #FSFables 】DAY 2.5 - Hyr Comes our Building Arc!", start: "2026-10-12T11:01:54Z", end: "2026-10-12T16:08:51Z", url: "https://www.youtube.com/watch?v=8jsBsqbrVtE" },
-  { label: "Nimue Eversea", title: "【#FSFables | Day 2.5】Nymfue Yverhym -  Nimue Eversea【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T11:06:03Z", end: "2026-10-12T14:51:54Z", url: "https://www.youtube.com/watch?v=fUhxE7na_d0" },
-  { label: "Ashkariel", title: "【#FSFABLES - DAY 3】 Tiny Little Guy, Tiny Little Adventures~ 【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T15:01:19Z", end: "2026-10-12T21:05:49Z", url: "https://www.youtube.com/watch?v=Z_gXeRJt8vM" },
-  { label: "Gale Galleon", title: "[#FSFABLES] THE PUMPKINS SHALL RULE ALL!", start: "2026-10-12T15:57:20Z", end: "2026-10-13T01:57:42Z", url: "https://www.youtube.com/watch?v=sMFhZI42D3I" },
-  { label: "Aurel Ophidia", title: "【#FSFABLES | Day 3】ONE MONTH OF SONTARIS!?【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T17:01:42Z", end: "2026-10-12T20:42:56Z", url: "https://www.youtube.com/watch?v=frd4L25yQPU" },
-  { label: "Varis Hemlock", title: "【Minecraft | #FSFables】 Laying foundations for Town Hall 【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T19:26:09Z", end: "2026-10-12T22:37:53Z", url: "https://www.youtube.com/watch?v=X-3j0dTIwhw" },
-  { label: "Cassian Floros", title: "Corvin has a new objective!【#FSFables - Day 2.5】", start: "2026-10-12T20:31:23Z", end: "2026-10-13T01:26:08Z", url: "https://www.youtube.com/watch?v=qTiDq88WPd0" },
-  { label: "Saeir Alarie", title: "【MINECRAFT】#FSFables Day 3: Moo  | Saeir Alarie【FIRST STAGE PRODUCTION EN】", start: "2026-10-12T21:55:08Z", end: "LIVE", url: "https://www.youtube.com/watch?v=mC49ue4mrck" },
-  { label: "Altus Zendoji", title: "【 #FSFables 】DAY 3 - Hyr, There and Everywhere!", start: "2026-10-12T23:01:01Z", end: "LIVE", url: "https://www.youtube.com/watch?v=r4XDX7pOEaw" },
-  { label: "Rosco Graves", title: "【#FSFables | Day 3】Time to pull some strings~", start: "2026-10-13T01:04:58Z", end: "LIVE", url: "https://www.youtube.com/watch?v=c0XqRsVUYow" },
-  { label: "Malim Cendari", title: "【#FSFables 02】Research, Observation, Expedition!", start: "2026-10-13T01:13:10Z", end: "LIVE", url: "https://www.youtube.com/watch?v=4UsaOmFbDEo" },
-  { label: "Nayuta Umbrage", title: "【#FSFables】#3 How to Become Stronger【Nayuta Umbrage | FIRST STAGE PRODUCTION EN】", start: "2026-10-13T02:11:09Z", end: "LIVE", url: "https://www.youtube.com/watch?v=xiAEIJHGD7E" },
-  { label: "Ryzar Blazenfang", title: "#FSFables DAY 3.5 // let's work on a tavern together. 🍻", start: "2026-10-13T03:47:57Z", end: "LIVE", url: "https://www.youtube.com/watch?v=zlxx6t9hDQc" },
-];
-//   const uniqueStreams = Array.from(new Map(streams.map((stream) => [stream.id, stream])).values());
 const labels = ["Gale Galleon", "Cassian Floros", "Lucien Lunaris", "Zander Netherbrand", "Rosco Graves", "Malim Cendari", "Altus Zendoji", "Ryzar Blazenfang", "Nayuta Umbrage", "Ashkariel", "Shiki Katagami", "Liron Lockheart", "Caelen Strayfe", "Elias Delborne", "Nimue Eversea", "Saeir Alarie", "Solan Fernwick", "Varis Hemlock", "Aurel Ophidia"];
-console.log(); //   console.log(data);
 
 const t = (d) => new Date(d).getTime();
 const timeFmt = new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
@@ -94,8 +112,12 @@ const startOfLocalDay = (ms) => {
 const fullMin = startOfLocalDay(t("2026-10-10T15:00Z"));
 const fullMax = startOfLocalDay(t("2026-10-24T08:00Z")) + 24 * 3600000;
 const NOW = new Date();
-const NOWMS = NOW.getTime();
-const DAY = 24 * 3600000;
+const HOUR = 3600000;
+const DAY = 24 * HOUR;
+
+const EST_HOURS = 4; // assumed length for scheduled streams with no end
+// const endOf = (s) => (s.end === "LIVE" ? Date.now() : s.end ? t(s.end) : t(s.start) + EST_HOURS * HOUR);
+const endOf = (s) => (s.end === "LIVE" ? Math.max(Date.now(), t(s.start) + EST_HOURS * 3600000) : s.end ? t(s.end) : t(s.start) + EST_HOURS * 3600000);
 
 const canvas = document.getElementById("c");
 Chart.defaults.color = "#000";
@@ -105,13 +127,16 @@ Chart.defaults.font.lineHeight = 1.25;
 
 const chart = new Chart(canvas, {
   type: "bar",
+  plugins: [futureStripes],
   data: {
     labels: labels,
     datasets: [
       {
-        data: streams.map((s) => ({ x: [t(s.start), s.end === "LIVE" ? Date.now() : t(s.end)], y: s.label })),
-        backgroundColor: streams.map((s) => colorOf(s).bg),
-        hoverBackgroundColor: streams.map((s) => colorOf(s).hover),
+        data: streams.map((s) => ({ x: [t(s.start), endOf(s)], y: s.label })),
+        backgroundColor: streams.map((s) => (s.scheduled ? stripe(colorOf(s).hover) : colorOf(s).bg)),
+        hoverBackgroundColor: streams.map((s) => (s.scheduled ? stripe(colorOf(s).hover) : colorOf(s).hover)),
+        borderColor: streams.map((s) => colorOf(s).hover),
+        borderWidth: streams.map((s) => (s.scheduled ? 1 : 0)),
         borderSkipped: false,
       },
     ],
@@ -124,8 +149,8 @@ const chart = new Chart(canvas, {
       x: {
         type: "time",
         title: { display: true, text: `Times shown in ${tz}` },
-        min: Math.max(fullMin, NOW - 3 * DAY), // initial view: most recent 3 days or min whichever matches scale
-        max: NOW.getTime() + 2 * 1800000,
+        min: NOW - 2 * DAY - 10 * HOUR, // initial view: most recent 2 day 10 hour or min whichever matches scale
+        max: NOW.getTime() + 14 * HOUR,
         afterBuildTicks(scale) {
           const ticks = [];
           const d = new Date(scale.min);
@@ -164,7 +189,8 @@ const chart = new Chart(canvas, {
             const s = streams[ctx.dataIndex];
             const [start, end] = ctx.raw.x;
             const hours = ((end - start) / 3600000).toFixed(1);
-            return [s.title, `${fmt(start)} – ${fmt(end)} (${hours} hrs)`];
+            const estimated = s.end === "LIVE" && Date.now() < end;
+            return [s.title, estimated ? `${fmt(start)} – live (est. ${hours} hrs)` : `${fmt(start)} – ${fmt(end)} (${hours} hrs)`];
           },
         },
       },
@@ -180,7 +206,6 @@ const chart = new Chart(canvas, {
             // scaleID: "x",
             xMin: NOW,
             xMax: NOW,
-            mode: "vertical",
             // value: now(),
             borderColor: "rgb(255, 99, 132)",
             borderWidth: 2,
@@ -194,15 +219,23 @@ const chart = new Chart(canvas, {
       if (url && url !== "#") window.open(url, "_blank", "noopener");
     },
     onHover(event, elements) {
-      canvas.style.cursor = elements.length ? "pointer" : "default";
+      canvas.style.cursor = elements.length ? "pointer" : "grab";
+      // canvas.style.cursor = elements.length ? "pointer" : "default";
     },
   },
 });
 
+canvas.addEventListener("pointerdown", () => {
+  if (canvas.style.cursor === "grab") canvas.style.cursor = "grabbing";
+});
+window.addEventListener("pointerup", () => {
+  if (canvas.style.cursor === "grabbing") canvas.style.cursor = "grab";
+});
+document.fonts.ready.then(() => chart.update());
 setInterval(() => {
   const now = Date.now();
   streams.forEach((s, i) => {
-    if (s.end === "LIVE") chart.data.datasets[0].data[i].x = [t(s.start), now];
+    if (s.end === "LIVE") chart.data.datasets[0].data[i].x = [t(s.start), endOf(s)];
   });
   const line = chart.options.plugins.annotation.annotations.line1;
   line.xMin = line.xMax = now;
