@@ -338,13 +338,4 @@
       </div>
     </footer>
   </body>
-  <script>
-    const navToggleCheckbox = document.getElementById("nav-toggle");
-    const navToggleLabel = document.getElementById("nav-toggle-label");
-
-    navToggleCheckbox.addEventListener("change", () => {
-      console.log("toggle change");
-      navToggleLabel.setAttribute("aria-expanded", String(navToggleCheckbox.checked));
-    });
-  </script>
 </html>

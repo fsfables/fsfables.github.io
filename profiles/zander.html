@@ -1,16 +1,85 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link
+      rel="stylesheet"
+      href="../src/output.css"
+    />
+    <link
+      rel="icon"
+      href="../favicon.ico"
+      type="image/x-icon"
+    />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <link
-      rel="stylesheet"
-      href="../src/output.css"
-    />
     <title>Va’len T’Shaal — Zander Netherbrand | FSFables</title>
+    <meta
+      name="tags"
+      content="zander netherbrand, fsp, first stage production, first stage fables, valen tshaal, fsp en, fspen, vtuber, male vtuber"
+    />
+    <meta
+      property="og:title"
+      content="Va’len T’Shaal — Zander Netherbrand"
+    />
+    <meta
+      property="og:description"
+      content="Character sheet for Va’len T’Shaal (made by Zander Netherbrand for First Stage Fables)"
+    />
+    <meta
+      property="og:url"
+      content="https://fsfables.github.io/profiles/zander"
+    />
+    <meta
+      property="og:image"
+      content="https://fsfables.github.io/src/cards/zander.jpg"
+    />
+    <meta
+      property="og:image:type"
+      content="image/jpeg"
+    />
+    <meta
+      property="og:image:width"
+      content="1000"
+    />
+    <meta
+      property="og:image:height"
+      content="600"
+    />
+    <meta
+      property="og:image:alt"
+      content="Character sheet for Va’len T’Shaal made by Zander Netherbrand"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      name="twitter:site"
+      content="@zerpsong"
+    />
+    <meta
+      name="twitter:creator"
+      content="@ZanNetherbrand"
+    />
+    <meta
+      name="twitter:title"
+      content="Va’len T’Shaal — Zander Netherbrand"
+    />
+    <meta
+      name="twitter:description"
+      content="Character sheet for Va’len T’Shaal (made by Zander Netherbrand for First Stage Fables)"
+    />
+    <meta
+      name="twitter:image"
+      content="https://fsfables.github.io/src/cards/zander.jpg"
+    />
   </head>
   <body>
     <input
@@ -19,126 +88,39 @@
       class="peer hidden"
     />
 
-    <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/90 backdrop-blur">
-      <div class="mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
-        <a
-          href="../index.html"
-          class="text-sm font-semibold tracking-tight text-gray-900"
-        >
-          <span class="sr-only">First Stage FABLES</span>
-          <img
-            class="h-8 w-auto"
-            src="../src/logo.png"
-            alt=""
-          />
-        </a>
-
-        <nav
-          aria-label="Global"
-          class="hidden md:block"
-        >
-          <ul class="flex items-center gap-8 text-sm text-gray-600">
-            <li>
-              <a
-                href="#work"
-                class="transition hover:text-gray-900"
-              >
-                Work
-              </a>
-            </li>
-            <li>
-              <a
-                href="#about"
-                class="transition hover:text-gray-900"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                class="transition hover:text-gray-900"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="flex items-center gap-3">
+    <!-- ========== HEADER ========== -->
+    <header class="sticky inset-x-0 top-0 z-50 py-4 lg:py-5 bg-beige-50/90 lg:backdrop-blur">
+      <nav class="mx-auto flex items-center justify-between px-6 lg:px-8">
+        <div class="flex lg:flex-1">
           <a
-            href="#contact"
-            class="hidden rounded-md bg-fsfables-light px-4 py-2 text-sm font-medium text-white transition hover:bg-fsfables sm:block"
+            href="#"
+            class="-m-1.5 p-1.5"
           >
-            Book a call
+            <span class="sr-only">First Stage FABLES</span>
+            <img
+              class="h-8 w-auto"
+              src="../src/logo.png"
+              alt=""
+            />
           </a>
-
-          <label
-            for="nav-toggle"
-            id="nav-toggle-label"
-            aria-expanded="false"
-            aria-controls="mobile-nav"
-            class="cursor-pointer rounded-md p-2 text-gray-600 transition peer-focus-visible:ring-2 peer-focus-visible:ring-fsfables-light peer-focus-visible:ring-offset-2 hover:bg-gray-100 md:hidden"
-          >
-            <span class="sr-only">Toggle menu</span>
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </label>
         </div>
-      </div>
 
-      <nav
-        id="mobile-nav"
-        aria-label="Global Mobile"
-        class="hidden border-t border-gray-100 bg-white peer-checked:block md:hidden"
-      >
-        <ul class="space-y-1 px-4 py-4 text-sm">
-          <li>
-            <a
-              href="#work"
-              class="block rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50"
-            >
-              Work
-            </a>
-          </li>
-          <li>
-            <a
-              href="#about"
-              class="block rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              class="block rounded-lg px-3 py-2 text-gray-600 hover:bg-gray-50"
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
+        <div class="flex gap-x-8">
+          <a
+            href="./timeline.html"
+            class="text-sm font-semibold leading-6 text-beige-700"
+          >
+            Timeline
+          </a>
+        </div>
       </nav>
     </header>
-
-    <main class="bg-white">
-      <article class="bg-gray-50 mx-auto max-w-6xl px-4 pt-12 pb-20 sm:px-6 sm:pt-16">
+    <!-- ========== END HEADER ========== -->
+    <main class="bg-beige-50 bg-[url(../bg.png)] select-none">
+      <article class="bg-beige-50/50 mx-auto max-w-6xl px-4 pt-12 pb-20 sm:px-6 sm:pt-16 select-auto">
         <a
           href="#"
-          class="inline-flex items-center gap-1 text-sm font-medium text-gray-600 transition hover:text-gray-900"
+          class="inline-flex items-center gap-1 text-sm font-medium text-beige-600 transition hover:text-beige-900"
         >
           <svg
             aria-hidden="true"
@@ -159,30 +141,30 @@
         </a>
 
         <figure class="mt-10 border-l-10 border-zander py-1 pl-6">
-          <h1 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">Va’len T’Shaal</h1>
+          <h1 class="text-3xl font-semibold tracking-tight text-beige-900 sm:text-4xl">Va’len T’Shaal</h1>
         </figure>
 
-        <!-- <p class="mt-4 text-lg text-pretty text-gray-600">SUMMARY</p> -->
+        <!-- <p class="mt-4 text-lg text-pretty text-beige-600">SUMMARY</p> -->
 
-        <dl class="mt-8 flex flex-wrap gap-x-8 gap-y-4 border-y border-gray-200 py-6 text-sm">
+        <dl class="mt-8 flex flex-wrap gap-x-8 gap-y-4 border-y border-beige-200 py-6 text-sm">
           <div>
-            <dt class="text-gray-500">Race / Species</dt>
-            <dd class="mt-1 font-medium text-gray-900">Tiefling</dd>
+            <dt class="text-beige-500">Race / Species</dt>
+            <dd class="mt-1 font-medium text-beige-900">Tiefling</dd>
           </div>
 
           <div>
-            <dt class="text-gray-500">Class</dt>
-            <dd class="mt-1 font-medium text-gray-900">Warlock</dd>
+            <dt class="text-beige-500">Class</dt>
+            <dd class="mt-1 font-medium text-beige-900">Warlock</dd>
           </div>
 
           <div>
-            <dt class="text-gray-500">Background</dt>
-            <dd class="mt-1 font-medium text-gray-900">Noble, turned Failed Doctor</dd>
+            <dt class="text-beige-500">Background</dt>
+            <dd class="mt-1 font-medium text-beige-900">Noble, turned Failed Doctor</dd>
           </div>
 
           <div>
-            <dt class="text-gray-500">Alignment</dt>
-            <dd class="mt-1 font-medium text-gray-900">Lawful Evil</dd>
+            <dt class="text-beige-500">Alignment</dt>
+            <dd class="mt-1 font-medium text-beige-900">Lawful Evil</dd>
           </div>
         </dl>
         <div class="flex justify-center">
@@ -193,7 +175,7 @@
               class="h-auto max-w-full mt-10 aspect-video rounded-lg"
             />
 
-            <figcaption class="text-center text-sm text-gray-600 mt-2">
+            <figcaption class="text-center text-sm text-beige-600 mt-2">
               "𝕴 𝖜𝖎𝖑𝖑 𝖓𝖊𝖛𝖊𝖗 𝖆𝖑𝖑𝖔𝖜 𝖊𝖒𝖔𝖙𝖎𝖔𝖓 𝖙𝖔 𝖉𝖎𝖈𝖙𝖆𝖙𝖊 𝖔𝖗 𝖕𝖗𝖊𝖛𝖊𝖓𝖙 𝖙𝖍𝖊 𝖌𝖗𝖊𝖆𝖙 𝖉𝖊𝖊𝖉 𝖙𝖍𝖆𝖙 𝕴 𝖆𝖒 𝖚𝖓𝖉𝖊𝖗𝖙𝖆𝖐𝖎𝖓𝖌."
               <br />
               <br />
@@ -202,16 +184,16 @@
               <br />
               After all, somone needs to think of "The Greater Good"
               <br />
-              Source:
+              [
               <a
                 href="https://x.com/ZanNetherbrand/status/2107924791524987254"
-                class="text-fsfables-light hover:underline"
+                class="text-fsfables-500 hover:underline"
               >
                 source
               </a>
-              ( Art by
+              ] ( Art by
               <a
-                class="text-fsfables-light hover:underline"
+                class="text-fsfables-500 hover:underline"
                 href="https://x.com/azuchicastle21/status/2106904280322261031"
               >
                 @azuchicastle21
@@ -234,120 +216,222 @@
           ></iframe>
         </div>
 
-        <div class="mt-10 space-y-6 text-gray-600">
-          <h2 class="text-xl font-semibold text-gray-900">The problem</h2>
+        <div class="mt-10 text-beige-600">
+          <h2>📜 YOUR CHARACTER AT A GLANCE</h2>
+          <h4>Character Concept</h4>
 
-          <p>Fieldnote's engineers file inspection reports from sites with patchy signal &mdash; the bottom of a wind turbine, a basement plant room, a truck cab between stops. The existing editor synced on every keystroke, so a dropped connection didn't just pause saving, it silently discarded it. Support tickets about "where did my report go" outnumbered every other category combined.</p>
-
-          <h2 class="text-xl font-semibold text-gray-900">What we tried first</h2>
-
-          <p>The obvious fix was a longer retry queue and a "saving&hellip;" indicator that stayed honest about connection state. It shipped in a week and made the problem worse: engineers now watched a spinner that never resolved, then closed the tab anyway. The editor needed to stop treating the network as a dependency, not get better at apologising for it.</p>
-
-          <h2 class="text-xl font-semibold text-gray-900">The rebuild</h2>
-
-          <p>Every report now writes to local storage first and syncs in the background whenever a connection exists, with the UI never blocking on it. Conflicts &mdash; two engineers editing the same report after a signal gap &mdash; resolve with a field-level merge and a manual review only when the same field changed on both sides, which turned out to be rare enough to not need solving upfront.</p>
-        </div>
-
-        <figure class="mt-10 border-l-2 border-fsfables-light py-1 pl-6">
-          <blockquote>
-            <p class="bg-white text-lg font-medium text-pretty text-gray-900">Nobody on the team thinks about the editor anymore, which is exactly the point. It just works, even out of signal.</p>
-          </blockquote>
-
-          <figcaption class="mt-3 text-sm text-gray-500">Marcus Boyle, Engineering Lead at Fieldnote</figcaption>
-        </figure>
-
-        <div class="mt-10 space-y-6 text-gray-600">
-          <h2 class="text-xl font-semibold text-gray-900">The result</h2>
-
-          <p>Three months after launch, average report time had dropped from 11 minutes to 4, and adoption in the field crews that had quietly gone back to paper recovered fully. No report has been lost to a dropped connection since.</p>
-        </div>
-
-        <dl class="mt-10 grid grid-cols-1 gap-6 rounded-lg bg-gray-50 p-8 text-center sm:grid-cols-3">
-          <div>
-            <dd class="text-3xl font-semibold text-gray-900">4 min</dd>
-            <dt class="mt-1 text-sm text-gray-500">Average report time, down from 11</dt>
-          </div>
-
-          <div>
-            <dd class="text-3xl font-semibold text-gray-900">92%</dd>
-            <dt class="mt-1 text-sm text-gray-500">Field adoption within a quarter</dt>
-          </div>
-
-          <div>
-            <dd class="text-3xl font-semibold text-gray-900">0</dd>
-            <dt class="mt-1 text-sm text-gray-500">Reports lost to dropped connections since launch</dt>
-          </div>
-        </dl>
-
-        <div class="mt-16 border-t border-gray-200 pt-10">
-          <p class="text-sm font-medium text-fsfables-light">Next up</p>
-
-          <a
-            href="#"
-            class="group mt-2 flex items-center justify-between gap-4"
-          >
-            <h2 class="text-xl font-semibold text-gray-900 group-hover:text-fsfables-light">Taking a team dashboard from spreadsheet to shippable</h2>
-
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-5 shrink-0 text-gray-400 transition group-hover:translate-x-1 group-hover:text-fsfables-light rtl:rotate-180 rtl:group-hover:-translate-x-1"
+          <p class="my-2 text-body">
+            Failed doctor (haematologist) turned blood mage who after his experiments were discovered back in the Crownlands, volunteered himself for an expedition into the unknown.
+            <sup
+              id="ref-1"
+              class="text-xs font-medium text-fsfables-600 select-none hover:underline scroll-mt-16"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-              />
-            </svg>
-          </a>
+              <a
+                href="#note-1"
+                title="Go to source"
+                class="m-0"
+              >
+                [note 1]
+              </a>
+            </sup>
+          </p>
+
+          <h4>Three Words That Describe Them:</h4>
+
+          <ol class="mt-1 ml-6 [&>*]:mb-0.5 text-body list-decimal list-inside">
+            <li>Ambitious</li>
+            <li>Pragmatic</li>
+            <li>Cutthroat</li>
+          </ol>
+
+          <h4>What do they look like?</h4>
+
+          <div class="my-2 text-body">
+            <p>Ashen-skinned Tiefling. Pale, sickly almost in appearance. Still dresses like a nobleman. Waistcoat, long dinner jacket, silver-clawed gauntlet, medical reference books tucked into his pack. Covered in small packs and little leather pouches. Dinner coat full of pockets.</p>
+            <p>Hair: Long hair down his back. Black in color. Partial braid. Also still carries around medical equipment, (((syringes))).</p>
+            <p>Shorter horns.</p>
+          </div>
+          <p>Thinks he can heal. Knows he can harm.</p>
+
+          <h4>What immediately stands out about them?</h4>
+          <p>
+            His eyes (purplish-red) are always looking as if he is assessing everything he sees.
+            <span class="text-fsfables-600">(Something just slightly fucked up about his gaze, no light behind the eyes.)</span>
+          </p>
+          <h2>❤️ PERSONALITY</h2>
+          <h4>Personality Traits</h4>
+
+          <p>Upon first meeting, turns on the charm and becomes the most personable being he can be. The charm is a deliberate attempt to try and disarm those he meets and ingratiate himself into whatever situation he finds.</p>
+          <p>There’s something sliiiiiightly off with him. The smile never reaches his eyes</p>
+
+          <h4>Strengths</h4>
+          <p>Strong pragmatic mind. Genuinely good at reading other and social events. Good problem solving. Adaptable</p>
+
+          <h4>Flaws</h4>
+          <p>Lack of empathy. Lack of morals.</p>
+
+          <h4>Quirks & Habits</h4>
+          <p>Failure. Wasting his life, if the goal of healing all is impossible, then why do I exist?</p>
+
+          <h4>Likes</h4>
+          <p>Blood, science, long walks on the beach, a good bottle of wine, the cold, meeting new people. Quiet days in his lab, helping others (society as a whole (the greater good (in the long term)))</p>
+
+          <h4>Dislikes</h4>
+          <p>Waste, ignorance, closed mindedness, being judged. Time being wasted. Children.</p>
+
+          <h2>🗡️ ADVENTURING</h2>
+          <h4>Class & Abilities</h4>
+          <h4>
+            Primary Role:
+            <span class="font-normal text-beige-600">Damage Dealer & Spellcaster</span>
+          </h4>
+          <h4>Signature Ability</h4>
+          <p>Blood Thorns and Life Drain, and a witty last word</p>
+
+          <h2>⚔️ WEAPONS & EQUIPMENT</h2>
+          <h4>
+            Primary Weapon:
+            <span class="font-normal text-beige-600">Spells / Sword / Dagger</span>
+          </h4>
+          <h4>
+            Secondary Weapon:
+            <span class="font-normal text-beige-600">n/a (not that kind of guy)</span>
+          </h4>
+          <h4>
+            Armour / Clothing:
+            <span class="font-normal text-beige-600">Very Virgil Coat, is not afraid of wearing armour.</span>
+          </h4>
+          <h4>Most Valuable Possession:</h4>
+          <p>Anatomy book left over from his studies.</p>
+          <h4>Signature Ability</h4>
+          <p>RESEARCH NOTES.</p>
+
+          <h2>✨ MAGIC & SPECIAL ABILITIES</h2>
+          <h4>Magical Ability / Power:</h4>
+          <p>Blood Magic.</p>
+          <h4>How did they acquire it?</h4>
+          <p>Research into blood drove him deeper into a cult study. That study led him to an entity that exists and is connected to the blood. That creature is what he has gained his power from. By understanding the blood, by understanding the rules of this being, his power grows.</p>
+          <h4>What does their magic look or feel like?</h4>
+          <p>It’s blood bruh. Warm or hot depending on the spell, especially powerful spell can have the vitae sizzling on impact or chewing through their target like acid.</p>
+          <h4>Does their power have a cost, weakness, or limitation?</h4>
+          <p>Using his own blood exhausts him and may force him to rest. His power is limited by his understanding of the creature that lives within Vitae.</p>
+
+          <h2>BACKSTORY</h2>
+          <div class="accordion-container mx-10 mt-3">
+            <dl class="*:border-b *:border-beige-900/10 *:py-6">
+              <div class="first:pt-0 last:border-b-0 last:pb-0">
+                <dt>
+                  <button
+                    type="button"
+                    id="accordion-button:1"
+                    class="flex w-full items-start justify-between text-start"
+                    aria-expanded="false"
+                    aria-controls="accordion-panel:1"
+                  >
+                    <span class="text-base font-semibold leading-7 text-fsfables-800">Backstory spiel on creation stream</span>
+                    <span class="ml-6 mt-1 flex h-5 w-5 flex-none items-center justify-center rounded-full ring-2 ring-inset ring-beige-900">
+                      <svg
+                        class="plus-icon block h-4 w-4 text-beige-900"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 12H18M12 6V18"
+                          stroke="currentColor"
+                          stroke-width="3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      <svg
+                        class="minus-icon hidden h-4 w-4 text-beige-900"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M6 12L18 12"
+                          stroke="currentColor"
+                          stroke-width="3"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </dt>
+                <dd
+                  class="mt-2 hidden pr-12"
+                  id="accordion-panel:1"
+                >
+                  <p class="text-fsfables-600">Youngest son of the noble T’shaal family. First memories of my older brother–sickly, pale, with pustules weeping from his skin. He was the one destined to take over our noble line. Thirdborn, I was. My oldest brother, I still remember to this day.Frail, laying in bed, boils on his skin, weeping pus into the mattress. Mother telling me to hug him, give him a kiss on the forehead before bed at night. I felt sympathy, but more importantly, I felt disgust. The idea of touching him, his skin pale, half rotten, peeling off of him like tissue paper. The thought in my young mind, all I wanted was to heal him, make him better.</p>
+                  <p class="text-fsfables-600">It's incredible how things we think of children as children end up translating to us as adults. I thought I would become a doctor, heal the world's wrongs, one body at a time. And so I strived day after day, until I finally was there, studying among the great and the good.</p>
+                  <p class="text-fsfables-600">That it seemed I wasn't quite good enough. I failed, fell away, like many do. My brother passed away that summer. He would have died before I'd ever even finished school. My reason was gone. And with that, I had nothing shackling me or giving me pause. I'd spent my whole life studying the body, the blood. I couldn't manage it. The idea of leaving the city, returning home, and having wasted everything for nothing, and so if I could not heal him, then I would heal the world instead. It made sense to me at the time, though. Having failed already, I apprenticed myself at a local surgery, a small place in the city. They let me scribe at night, stay there late, clean, and the owner was kind enough to allow me to make notes on the cadavers that would pass through.</p>
+                  <p class="text-fsfables-600">Of course, you can only do so much with cadavers. A small surgery like that often needed to have deals and obviously understandings with different parts and elements of the city in order to continue to function. It's the way of things. And over time, I became somewhat trusted. Not as a doctor in my own right. No, no, never. But a pair of hands, someone to check on overnight patients, someone trusted.</p>
+                  <p class="text-fsfables-600">We had a deal with the local prison. Perhaps one injured in a brawl in a tavern or one sat there for quite a long while had come across some injuring one inmate had done to another one night I had the thought… Live subjects are so rare and who would miss this person? I remember not his face. Some murderer, some degenerate. He didn't get better come the next morning. And then after a while, they had a habit of never quite getting better. And so I continued my research. I knew it was in the blood. It was something within that. I could feel it calling to me. Almost an itch in the back of my head. Ever since I first touched my brother when I was so young. Ever since I saw the weeping bloody pustules coming from his body, I felt something there pulling me, calling me. And the deeper I dug, the more I knew it existed until I found it.</p>
+                  <p class="text-fsfables-600">One night in the surgery room, my hands caked in blood and bile and who knows whatever else. I felt it. Something whispering within my mind. Something not entirely me. I followed it deeper and deeper. The blood was always the answer. I just needed to find the right question. Unfortunately, it seems that one of the prisoners I had experimented on was the son of a rather influential businessman, who in turn had raised the issue to one of the city's governors, who in turn had volunteered the information to the city guard.</p>
+                  <p class="text-fsfables-600">It seemed as if my luck had turned. And then I saw it. A boat to new horizons, a promise of adventure, and perhaps the chance to heal the world's ills. I know when to leave a party before it starts to go downhill. And something told me that this party was just about to be spoiled.</p>
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <h2>🎯 MOTIVATION</h2>
+          <h4>What does your character want?</h4>
+          <p>Heal the world and banish sickness. Understand the nature of this realm so that there might be future medical application.</p>
+          <h4>Why do they want it?</h4>
+          <p>It’s my life’s meaning</p>
+          <h4>What would they sacrifice to achieve it?</h4>
+          <p>Lives, men, women, children, ... but never myself…</p>
+          <h4>What would they NEVER sacrifice?</h4>
+          <p>His own life, ever. If I die, nothing matters.</p>
+          <h4>What would make them abandon the adventure?</h4>
+          <p>Hopelessness. There must always be a chance of successful, fighting against impossible odds is not what I signed up for.</p>
+
+          <h2>🏰 THE ADVENTURING PARTY</h2>
+          <h4>What do you think of your fellow adventurers?</h4>
+          <p>Interesting test subjects, unique creatures. It might be delightful to see them in action. Variety is the spice of life. This new land could become a place of science, freedom and a location where those with enterprising minds may work freely without such awful obstruction such as “human rights”.</p>
+          <h4>
+            Primary Role:
+            <span class="font-normal text-beige-600">Damage Dealer & Spellcaster</span>
+          </h4>
+          <h4>What would make you trust another party member?</h4>
+          <p>Openness, obedience, knowing their place. Too much intelligence is dangerous on the wrong sort. Moral flexibility. Ambition. Good hygiene. A positive outlook. Loyalty shall be repaid in kind</p>
+          <h4>What would make you betray them?</h4>
+          <p>
+            Research data, their own betrayal,
+            <span class="font-semibold">selfishness</span>
+            .
+          </p>
+
+          <h2>💀 MORALITY & CHOICES</h2>
+          <h4>Your character discovers a wounded enemy begging for mercy. What do they do?</h4>
+          <p>Watch.</p>
+          <p>
+            And when ready, finish quickly and cleanly, ideally via precise head trauma.
+            <span class="text-fsfables-600">To keep vital organs intact yk~</span>
+          </p>
+          <h4>You discover a treasure that could make you incredibly wealthy, but taking it will harm innocent people. What do you do?</h4>
+          <p>Take it. The good I use the treasure for will outweigh the suffering of a few insignificants.</p>
+          <h4>What line will your character never cross?</h4>
+          <p>I will never allow emotion to dictate my work and prevent the great deed that I am undertaking.</p>
         </div>
+
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/videoseries?si=J1bl8cXIIVKkXFBU&amp;list=PLKDZ1ig0uz-U"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
       </article>
     </main>
-
-    <footer class="border-t border-gray-100">
-      <div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-8 sm:flex-row sm:justify-between sm:px-6">
-        <p class="text-sm text-gray-500">&copy; 2026 Guillermo de la Cruz. Lisbon, Portugal.</p>
-
-        <ul class="flex items-center gap-5">
-          <li>
-            <a
-              href="#"
-              class="text-sm text-gray-500 transition hover:text-gray-900"
-            >
-              Dribbble
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="text-sm text-gray-500 transition hover:text-gray-900"
-            >
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="text-sm text-gray-500 transition hover:text-gray-900"
-            >
-              Read.cv
-            </a>
-          </li>
-        </ul>
-      </div>
-    </footer>
   </body>
-  <script>
-    const navToggleCheckbox = document.getElementById("nav-toggle");
-    const navToggleLabel = document.getElementById("nav-toggle-label");
-
-    navToggleCheckbox.addEventListener("change", () => {
-      console.log("toggle change");
-      navToggleLabel.setAttribute("aria-expanded", String(navToggleCheckbox.checked));
-    });
-  </script>
+  <script src="../src/accordion.js"></script>
 </html>

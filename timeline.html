@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <link
+      rel="stylesheet"
+      href="./src/output.css"
+    />
+    <link
+      rel="icon"
+      href="./favicon.ico"
+      type="image/x-icon"
+    />
+
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Stream Timeline | FSFables</title>
+    <meta
+      name="tags"
+      content="fsp, first stage production, first stage fables, timeline, fsp en, fspen, vtuber, male vtuber"
+    />
+    <meta
+      property="og:title"
+      content="FSFables Stream Timeline"
+    />
+    <meta
+      property="og:description"
+      content="Timeline of the streams that took place for First Stage Fables"
+    />
+    <meta
+      property="og:url"
+      content="https://fsfables.github.io/timeline"
+    />
+    <meta
+      property="og:image"
+      content="https://fsfables.github.io/src/cards/timeline.jpg"
+    />
+    <meta
+      property="og:image:type"
+      content="image/jpeg"
+    />
+    <meta
+      property="og:image:width"
+      content="1000"
+    />
+    <meta
+      property="og:image:height"
+      content="600"
+    />
+    <meta
+      property="og:image:alt"
+      content="Timeline of the streams that took place for First Stage Fables"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+    <meta
+      name="twitter:site"
+      content="@zerpsong"
+    />
+    <meta
+      name="twitter:title"
+      content="FSFables Stream Timeline"
+    />
+    <meta
+      name="twitter:description"
+      content="Timeline of the streams that took place for First Stage Fables"
+    />
+    <meta
+      name="twitter:image"
+      content="https://fsfables.github.io/src/cards/timeline.jpg"
+    />
+  </head>
+  <body>
+    <input
+      type="checkbox"
+      id="nav-toggle"
+      class="peer hidden"
+    />
+
+    <!-- ========== HEADER ========== -->
+    <header class="sticky inset-x-0 top-0 z-50 py-4 lg:py-5 bg-beige-50/90 lg:backdrop-blur">
+      <nav class="mx-auto flex items-center justify-between px-6 lg:px-8">
+        <div class="flex lg:flex-1">
+          <a
+            href="#"
+            class="-m-1.5 p-1.5"
+          >
+            <span class="sr-only">First Stage FABLES</span>
+            <img
+              class="h-8 w-auto"
+              src="./src/logo.png"
+              alt=""
+            />
+          </a>
+        </div>
+
+        <div class="flex gap-x-8">
+          <a
+            href="./timeline"
+            class="text-sm font-semibold leading-6 text-beige-700"
+          >
+            Timeline
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- ========== END HEADER ========== -->
+    <main class="bg-beige-50 bg-[url(../bg.png)] select-none min-h-screen">
+      <article class="bg-beige-50/50 mx-auto px-4 pt-12 pb-20 sm:px-6 sm:pt-16 select-auto">
+        <div
+          id="wrap"
+          class="relative h-dvh"
+        >
+          <canvas id="c"></canvas>
+        </div>
+      </article>
+    </main>
+    <script src="./src/timeline.js"></script>
+  </body>
+</html>
