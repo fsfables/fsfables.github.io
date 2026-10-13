@@ -1,8 +1,10 @@
-const CSV_URLS = ["https://docs.google.com/spreadsheets/d/e/2PACX-1vTTtpoxwXkHiCmmSX9bRZM7DAIrhFHpsccTKTfE8cRr5J6lH7bK6K8GMJhK7zaI6F_JNRtKrmV08i4o/pub?gid=0&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBeKPc99kBZpcg4Z9PfH54AZKluekOMoMQT2Syy9c2HUrPm_-HLh3JLVG7euoBGDpxTcvjYQtFtEDR/pub?gid=0&single=true&output=csv"];
-const CACHE_KEY = "streams-cache-v1";
+// const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTtpoxwXkHiCmmSX9bRZM7DAIrhFHpsccTKTfE8cRr5J6lH7bK6K8GMJhK7zaI6F_JNRtKrmV08i4o/pub?gid=0&single=true&output=csv"; // Orig
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBeKPc99kBZpcg4Z9PfH54AZKluekOMoMQT2Syy9c2HUrPm_-HLh3JLVG7euoBGDpxTcvjYQtFtEDR/pub?gid=0&single=true&output=csv"; // Backup
 
-function parseStreams(text) {
-  const { data } = Papa.parse(text, { header: true, skipEmptyLines: true });
+async function loadStreams() {
+  const res = await fetch(CSV_URL);
+  if (!res.ok) throw new Error("Sheet fetch failed: " + res.status);
+  const { data } = Papa.parse(await res.text(), { header: true, skipEmptyLines: true });
   return data
     .map((r) => ({
       label: (r.label || "").trim(),
@@ -13,47 +15,6 @@ function parseStreams(text) {
       url: (r.url || "").trim() || "#",
     }))
     .filter((s) => s.label && Number.isFinite(new Date(s.start).getTime()));
-}
-
-async function fetchCsv(url, timeoutMs = 8000) {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
-  try {
-    // cache-busting param so a stale CDN/browser copy isn't served
-    const sep = url.includes("?") ? "&" : "?";
-    const res = await fetch(`${url}${sep}_=${Date.now()}`, { signal: ctrl.signal, cache: "no-store" });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const streams = parseStreams(await res.text());
-    if (!streams.length) throw new Error("empty sheet");
-    return streams;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function loadStreams() {
-  for (const url of CSV_URLS) {
-    try {
-      const streams = await fetchCsv(url);
-      const name = i === 0 ? "primary" : `backup #${i}`;
-      console.log(`Stream source: ${name} (${streams.length} rows)`, url);
-      try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify(streams));
-      } catch {}
-      return streams;
-    } catch (err) {
-      console.warn("CSV source failed:", url, err);
-    }
-  }
-  // every source failed: fall back to the last good copy
-  try {
-    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
-    if (cached?.length) {
-      console.warn("Using cached stream data");
-      return cached;
-    }
-  } catch {}
-  throw new Error("All stream sources failed");
 }
 
 async function main() {
