@@ -78,12 +78,13 @@ const streams = [
   { label: "Ryzar Blazenfang", title: "#FSFables DAY 3.5 // let's work on a tavern together. 🍻", start: "2026-10-13T03:47:57Z", end: "LIVE", url: "https://www.youtube.com/watch?v=zlxx6t9hDQc" },
 ];
 //   const uniqueStreams = Array.from(new Map(streams.map((stream) => [stream.id, stream])).values());
-
 const labels = ["Gale Galleon", "Cassian Floros", "Lucien Lunaris", "Zander Netherbrand", "Rosco Graves", "Malim Cendari", "Altus Zendoji", "Ryzar Blazenfang", "Nayuta Umbrage", "Ashkariel", "Shiki Katagami", "Liron Lockheart", "Caelen Strayfe", "Elias Delborne", "Nimue Eversea", "Saeir Alarie", "Solan Fernwick", "Varis Hemlock", "Aurel Ophidia"];
 console.log(); //   console.log(data);
 
 const t = (d) => new Date(d).getTime();
-const fmt = (ms) => new Date(ms).toLocaleTimeString([], { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
+const timeFmt = new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit", timeZoneName: "short" });
+const fmt = (ms) => timeFmt.format(ms);
+const tz = timeFmt.formatToParts().find((p) => p.type === "timeZoneName").value; // e.g. "PDT"
 const startOfLocalDay = (ms) => {
   const d = new Date(ms);
   d.setHours(0, 0, 0, 0);
@@ -97,8 +98,12 @@ const NOWMS = NOW.getTime();
 const DAY = 24 * 3600000;
 
 const canvas = document.getElementById("c");
+Chart.defaults.color = "#000";
+Chart.defaults.font.family = '"Noto Serif", "Noto Serif JP", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
+Chart.defaults.font.size = 14;
+Chart.defaults.font.lineHeight = 1.25;
 
-new Chart(canvas, {
+const chart = new Chart(canvas, {
   type: "bar",
   data: {
     labels: labels,
@@ -113,10 +118,12 @@ new Chart(canvas, {
   },
   options: {
     indexAxis: "y",
+    maintainAspectRatio: false,
 
     scales: {
       x: {
         type: "time",
+        title: { display: true, text: `Times shown in ${tz}` },
         min: Math.max(fullMin, NOW - 3 * DAY), // initial view: most recent 3 days or min whichever matches scale
         max: NOW.getTime() + 2 * 1800000,
         afterBuildTicks(scale) {
@@ -136,6 +143,14 @@ new Chart(canvas, {
             const time = d.toLocaleTimeString([], { hour: "numeric" });
             // Midnight tick gets the localized date on a second line
             return d.getHours() === 0 ? [time, d.toLocaleDateString([], { month: "short", day: "numeric" })] : time;
+          },
+        },
+      },
+      y: {
+        ticks: {
+          autoSkip: false,
+          callback(value) {
+            return this.getLabelForValue(value).split(" "); // "Zander Netherbrand" -> ["Zander", "Netherbrand"]
           },
         },
       },
