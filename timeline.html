@@ -91,7 +91,7 @@
     />
 
     <!-- ========== HEADER ========== -->
-    <header class="sticky inset-x-0 top-0 z-50 py-4 lg:py-5 bg-beige-50/90 lg:backdrop-blur">
+    <header class="inset-x-0 top-0 z-50 py-4 lg:py-5 bg-beige-50/90 lg:backdrop-blur">
       <nav class="mx-auto flex items-center justify-between px-6 lg:px-8">
         <div class="flex lg:flex-1">
           <a
@@ -120,11 +120,22 @@
     <!-- ========== END HEADER ========== -->
     <main class="bg-beige-50 bg-[url(../bg.png)] min-h-screen">
       <article class="bg-beige-50/50 mx-auto px-4 pt-6 pb-10 sm:px-3 sm:pt-8 select-auto">
+        <h2>Timeline of FSFables Streams</h2>
+        <p>The timeline is draggable & zoomable/pinchable! For future streams and recently started streams, the default estimation is 4 hours for easy of clicking (clicking on the bar will take you to the stream!)</p>
+        <p>If you're having trouble scrolling vertically, make sure you scroll on the edges!</p>
+        <p>
+          This is manually updated so things may look odd overnight Pacific Time. Feel free to contact me at
+          <a href="https://twitter.com/zerpsong">@zerpsong</a>
+          .
+        </p>
         <div
           id="wrap"
-          class="relative min-h-200 h-[75vh]"
+          class="relative min-h-200 h-[75vh] mx-8"
         >
-          <canvas id="c"></canvas>
+          <canvas
+            id="c"
+            class="h-200"
+          ></canvas>
         </div>
       </article>
     </main>

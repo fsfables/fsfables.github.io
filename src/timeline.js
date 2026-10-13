@@ -50,7 +50,19 @@ const futureStripes = {
     ctx.restore();
   },
 };
-
+const credit = {
+  id: "credit",
+  afterDraw(chart) {
+    const { ctx, chartArea } = chart;
+    ctx.save();
+    ctx.font = `12px ${Chart.defaults.font.family}`;
+    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "top";
+    ctx.fillText("Chart by @zerpsong", chartArea.right - 6, chartArea.top + 6);
+    ctx.restore();
+  },
+};
 const palette2 = {
   gale: { bg: "oklch(0.753 0.154 84.45 / 0.5)", hover: "oklch(0.667 0.137 84.62 / 0.8)" },
   cassian: { bg: "oklch(0.745 0.158 151.53 / 0.5)", hover: "oklch(0.657 0.14 151.4 / 0.8)" },
@@ -122,12 +134,12 @@ const endOf = (s) => (s.end === "LIVE" ? Math.max(Date.now(), t(s.start) + EST_H
 const canvas = document.getElementById("c");
 Chart.defaults.color = "#000";
 Chart.defaults.font.family = '"Noto Serif", "Noto Serif JP", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
-Chart.defaults.font.size = 14;
+Chart.defaults.font.size = 13;
 Chart.defaults.font.lineHeight = 1.25;
 
 const chart = new Chart(canvas, {
   type: "bar",
-  plugins: [futureStripes],
+  plugins: [futureStripes, credit],
   data: {
     labels: labels,
     datasets: [
