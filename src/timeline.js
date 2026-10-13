@@ -18,7 +18,13 @@ async function loadStreams() {
 
 async function main() {
   const streams = await loadStreams();
+
+  const stripeCache = new Map();
+
   function stripe(color, size = 10) {
+    const key = `${color}|${size}`;
+    if (stripeCache.has(key)) return stripeCache.get(key);
+
     const c = document.createElement("canvas");
     c.width = c.height = size;
     const g = c.getContext("2d");
@@ -37,7 +43,10 @@ async function main() {
     g.lineTo(size, size);
     g.closePath();
     g.fill();
-    return g.createPattern(c, "repeat");
+
+    const pattern = g.createPattern(c, "repeat");
+    stripeCache.set(key, pattern);
+    return pattern;
   }
 
   const futureStripes = {
@@ -141,15 +150,14 @@ async function main() {
     return d.getTime();
   };
 
-  const fullMin = startOfLocalDay(t("2026-10-10T15:00Z"));
-  const fullMax = startOfLocalDay(t("2026-10-24T08:00Z")) + 24 * 3600000;
   const NOW = new Date();
   const HOUR = 3600000;
   const DAY = 24 * HOUR;
+  const fullMin = startOfLocalDay(t("2026-10-10T15:00Z"));
+  const fullMax = startOfLocalDay(t("2026-10-24T08:00Z")) + DAY;
 
   const EST_HOURS = 4; // assumed length for scheduled streams with no end
-  // const endOf = (s) => (s.end === "LIVE" ? Date.now() : s.end ? t(s.end) : t(s.start) + EST_HOURS * HOUR);
-  const endOf = (s) => (s.end === "LIVE" ? Math.max(Date.now(), t(s.start) + EST_HOURS * 3600000) : s.end ? t(s.end) : t(s.start) + EST_HOURS * 3600000);
+  const endOf = (s) => (s.end === "LIVE" ? Math.max(Date.now(), t(s.start) + EST_HOURS * HOUR) : s.end ? t(s.end) : t(s.start) + EST_HOURS * HOUR);
 
   const canvas = document.getElementById("c");
   Chart.defaults.color = "#000";
@@ -181,15 +189,23 @@ async function main() {
         x: {
           type: "time",
           title: { display: true, text: `Times shown in ${tz}` },
-          min: NOW - 2 * DAY - 10 * HOUR, // initial view: most recent 2 day 10 hour or min whichever matches scale
+          min: NOW - 2 * DAY - 10 * HOUR,
           max: NOW.getTime() + 14 * HOUR,
           afterBuildTicks(scale) {
+            const STEPS_H = [1, 3, 6, 12, 24, 48]; // allowed tick spacings, in hours
+            const width = scale.width || scale.chart.width;
+            const pxPerHour = width / ((scale.max - scale.min) / HOUR);
+            // smallest spacing that leaves at least ~55px between labels
+            const step = STEPS_H.find((h) => h * pxPerHour >= 55) ?? STEPS_H[STEPS_H.length - 1];
+
+            // anchor at a local midnight so ticks don't slide while panning
+            const d = new Date(Math.min(fullMin, startOfLocalDay(scale.min)));
             const ticks = [];
-            const d = new Date(scale.min);
-            d.setHours(0, 0, 0, 0); // start from local midnight so ticks stay on 12 AM/6 AM/12 PM/6 PM while panning
             while (d.getTime() <= scale.max) {
               if (d.getTime() >= scale.min) ticks.push({ value: d.getTime() });
-              d.setHours(d.getHours() + 3);
+              if (step >= 24)
+                d.setDate(d.getDate() + step / 24); // whole days: always lands on local midnight
+              else d.setHours(d.getHours() + step);
             }
             scale.ticks = ticks;
           },
@@ -198,8 +214,7 @@ async function main() {
             callback(value) {
               const d = new Date(value);
               const time = d.toLocaleTimeString([], { hour: "numeric" });
-              // Midnight tick gets the localized date on a second line
-              return d.getHours() === 0 ? [time, d.toLocaleDateString([], { month: "short", day: "numeric" })] : time;
+              return d.getHours() === 0 ? [time, d.toLocaleDateString([], { month: "short", day: "numeric" })] : [time, "\u00A0"]; // keeps the axis two lines tall at all times
             },
           },
         },
@@ -220,16 +235,23 @@ async function main() {
             label: (ctx) => {
               const s = streams[ctx.dataIndex];
               const [start, end] = ctx.raw.x;
-              const hours = ((end - start) / 3600000).toFixed(1);
-              const estimated = s.end === "LIVE" && Date.now() < end;
-              return [s.title, estimated ? `${fmt(start)} – live (est. ${hours} hrs)` : `${fmt(start)} – ${fmt(end)} (${hours} hrs)`];
+              console.log(s.title);
+              console.log(s.end);
+
+              if (s.end === "LIVE") {
+                const pastEstimate = Date.now() >= start + EST_HOURS * HOUR;
+                return [s.title, pastEstimate ? `${fmt(start)} – live (${((Date.now() - start) / HOUR).toFixed(1)} hrs so far)` : `${fmt(start)} – live (est. ${((end - start) / HOUR).toFixed(1)} hrs)`];
+              }
+
+              const hours = ((end - start) / HOUR).toFixed(1);
+              return [s.title, `${fmt(start)} – ${fmt(end)} (${hours} hrs)`];
             },
           },
         },
         zoom: {
           pan: { enabled: true, mode: "x" },
           zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: "x" },
-          limits: { x: { min: fullMin, max: fullMax, minRange: 6 * 3600000 } },
+          limits: { x: { min: fullMin, max: fullMax, minRange: 6 * HOUR } },
         },
         annotation: {
           annotations: {
