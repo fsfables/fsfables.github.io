@@ -155,7 +155,7 @@ async function main() {
   const HOUR = 3600000;
   const DAY = 24 * HOUR;
   const fullMin = startOfLocalDay(t("2026-10-10T15:00Z"));
-  const fullMax = startOfLocalDay(t("2026-10-24T08:00Z")) + DAY;
+  const fullMax = startOfLocalDay(t("2026-10-25T08:00Z")) + DAY;
 
   const EST_HOURS = 4; // assumed length for scheduled streams with no end
   const endOf = (s) => (s.end === "LIVE" ? Math.max(Date.now(), t(s.start) + EST_HOURS * HOUR) : s.end ? t(s.end) : t(s.start) + EST_HOURS * HOUR);
