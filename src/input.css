@@ -308,9 +308,10 @@
   }
   p {
     margin-block: calc(var(--spacing) * 2) /* 0.5rem = 8px */;
+    color: var(--color-beige-700);
   }
   a {
-    color: var(--color-fsfables-500);
+    color: var(--color-fsfables-600);
   }
   a:hover {
     text-decoration-line: underline;

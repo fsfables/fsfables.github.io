@@ -93,27 +93,6 @@ async function main() {
       ctx.restore();
     },
   };
-  const palette2 = {
-    gale: { bg: "oklch(0.753 0.154 84.45 / 0.5)", hover: "oklch(0.667 0.137 84.62 / 0.8)" },
-    cassian: { bg: "oklch(0.745 0.158 151.53 / 0.5)", hover: "oklch(0.657 0.14 151.4 / 0.8)" },
-    lucien: { bg: "oklch(0.79 0.116 16.73 / 0.5)", hover: "oklch(0.727 0.163 18.78 / 0.8)" },
-    zander: { bg: "oklch(0.772 0.13 309.74 / 0.5)", hover: "oklch(0.692 0.183 310.31 / 0.8)" },
-    rosco: { bg: "oklch(0.785 0.135 354.64 / 0.5)", hover: "oklch(0.715 0.195 354.15 / 0.8)" },
-    malim: { bg: "oklch(0.781 0.108 17.68 / 0.5)", hover: "oklch(0.708 0.158 19.1 / 0.8)" },
-    altus: { bg: "oklch(0.78 0.09 275.67 / 0.5)", hover: "oklch(0.704 0.125 273.6 / 0.8)" },
-    ryzar: { bg: "oklch(0.756 0.134 29.98 / 0.5)", hover: "oklch(0.676 0.199 36.37 / 0.8)" },
-    nayuta: { bg: "oklch(0.796 0.051 292.88 / 0.5)", hover: "oklch(0.729 0.069 292.25 / 0.8)" },
-    ashkariel: { bg: "oklch(0.757 0 0 / 0.5)", hover: "oklch(0.673 0 0 / 0.8)" },
-    shiki: { bg: "oklch(0.809 0.069 309.4 / 0.5)", hover: "oklch(0.741 0.097 310.16 / 0.8)" },
-    liron: { bg: "oklch(0.797 0.102 4.9 / 0.5)", hover: "oklch(0.734 0.145 4.85 / 0.8)" },
-    caelen: { bg: "oklch(0.792 0.043 255.04 / 0.5)", hover: "oklch(0.719 0.061 253.37 / 0.8)" },
-    elias: { bg: "oklch(0.761 0.115 185.76 / 0.5)", hover: "oklch(0.686 0.104 185.31 / 0.8)" },
-    nimue: { bg: "oklch(0.81 0.054 231.05 / 0.5)", hover: "oklch(0.712 0.054 230.67 / 0.8)" },
-    saeir: { bg: "oklch(0.787 0.069 270.11 / 0.5)", hover: "oklch(0.718 0.094 268.34 / 0.8)" },
-    solan: { bg: "oklch(0.765 0.061 149.37 / 0.5)", hover: "oklch(0.674 0.053 149.34 / 0.8)" },
-    varis: { bg: "oklch(0.79 0.053 313.77 / 0.5)", hover: "oklch(0.723 0.073 315.25 / 0.8)" },
-    aurel: { bg: "oklch(0.766 0.101 96.02 / 0.5)", hover: "oklch(0.68 0.09 95.5 / 0.8)" },
-  };
   const palette = {
     gale: { bg: "oklch(0.8448 0.1663 83.9 / 0.5)", hover: "oklch(0.8448 0.1663 83.9 / 0.8)" },
     cassian: { bg: "oklch(0.7451 0.1577 151.54 / 0.5)", hover: "oklch(0.7451 0.1577 151.54 / 0.8)" },
