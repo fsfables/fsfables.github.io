@@ -50,36 +50,36 @@ async function main() {
     return pattern;
   }
 
-  const futureStripes = {
-    id: "futureStripes",
-    afterDatasetsDraw(chart) {
-      const {
-        ctx,
-        chartArea,
-        scales: { x },
-      } = chart;
-      const now = chart.options.plugins.annotation.annotations.line1.xMin; // same value the red line uses
-      const meta = chart.getDatasetMeta(0);
+  // const futureStripes = {
+  //   id: "futureStripes",
+  //   afterDatasetsDraw(chart) {
+  //     const {
+  //       ctx,
+  //       chartArea,
+  //       scales: { x },
+  //     } = chart;
+  //     const now = chart.options.plugins.annotation.annotations.line1.xMin; // same value the red line uses
+  //     const meta = chart.getDatasetMeta(0);
 
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(chartArea.left, chartArea.top, chartArea.width, chartArea.height);
-      ctx.clip(); // don't paint over the axes while panning
+  //     ctx.save();
+  //     ctx.beginPath();
+  //     ctx.rect(chartArea.left, chartArea.top, chartArea.width, chartArea.height);
+  //     ctx.clip(); // don't paint over the axes while panning
 
-      streams.forEach((s, i) => {
-        if (s.end !== "LIVE") return;
-        const end = chart.data.datasets[0].data[i].x[1];
-        if (end <= now) return; // already past the estimate, nothing to stripe
-        const bar = meta.data[i];
-        const x0 = x.getPixelForValue(now);
-        const x1 = x.getPixelForValue(end);
-        ctx.fillStyle = stripe(colorOf(s).hover);
-        ctx.fillRect(x0, bar.y - bar.height / 2, x1 - x0, bar.height);
-      });
+  //     streams.forEach((s, i) => {
+  //       if (s.end !== "LIVE") return;
+  //       const end = chart.data.datasets[0].data[i].x[1];
+  //       if (end <= now) return; // already past the estimate, nothing to stripe
+  //       const bar = meta.data[i];
+  //       const x0 = x.getPixelForValue(now);
+  //       const x1 = x.getPixelForValue(end);
+  //       ctx.fillStyle = stripe(colorOf(s).hover);
+  //       ctx.fillRect(x0, bar.y - bar.height / 2, x1 - x0, bar.height);
+  //     });
 
-      ctx.restore();
-    },
-  };
+  //     ctx.restore();
+  //   },
+  // };
   const credit = {
     id: "credit",
     afterDraw(chart) {
@@ -134,7 +134,7 @@ async function main() {
   const HOUR = 3600000;
   const DAY = 24 * HOUR;
   const fullMin = startOfLocalDay(t("2026-10-10T15:00Z"));
-  const fullMax = startOfLocalDay(t("2026-10-25T08:00Z")) + DAY;
+  const fullMax = startOfLocalDay(t("2026-10-25T15:00Z")) + DAY;
 
   const EST_HOURS = 4; // assumed length for scheduled streams with no end
   const endOf = (s) => (s.end === "LIVE" ? Math.max(Date.now(), t(s.start) + EST_HOURS * HOUR) : s.end ? t(s.end) : t(s.start) + EST_HOURS * HOUR);
@@ -233,19 +233,19 @@ async function main() {
           zoom: { wheel: { enabled: true }, pinch: { enabled: true }, mode: "x" },
           limits: { x: { min: fullMin, max: fullMax, minRange: 6 * HOUR } },
         },
-        annotation: {
-          annotations: {
-            line1: {
-              type: "line",
-              // scaleID: "x",
-              xMin: NOW,
-              xMax: NOW,
-              // value: now(),
-              borderColor: "rgb(255, 99, 132)",
-              borderWidth: 2,
-            },
-          },
-        },
+        // annotation: {
+        //   annotations: {
+        //     line1: {
+        //       type: "line",
+        //       // scaleID: "x",
+        //       xMin: NOW,
+        //       xMax: NOW,
+        //       // value: now(),
+        //       borderColor: "rgb(255, 99, 132)",
+        //       borderWidth: 2,
+        //     },
+        //   },
+        // },
       },
       onClick(event, elements) {
         if (!elements.length) return;
