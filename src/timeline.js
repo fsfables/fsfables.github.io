@@ -169,8 +169,8 @@ async function main() {
         x: {
           type: "time",
           title: { display: true, text: `Times shown in ${tz}` },
-          min: NOW - 2 * DAY - 10 * HOUR,
-          max: NOW.getTime() + 14 * HOUR,
+          min: fullMin,
+          max: fullMax,
           afterBuildTicks(scale) {
             const STEPS_H = [1, 3, 6, 12, 24, 48]; // allowed tick spacings, in hours
             const width = scale.width || scale.chart.width;
