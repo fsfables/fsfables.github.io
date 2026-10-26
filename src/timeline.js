@@ -147,7 +147,7 @@ async function main() {
 
   const chart = new Chart(canvas, {
     type: "bar",
-    plugins: [futureStripes, credit],
+    plugins: [credit],
     data: {
       labels: labels,
       datasets: [
